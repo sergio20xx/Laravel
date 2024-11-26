@@ -41,9 +41,15 @@
                         </td>
                     </tr>  
                     <tr>
+                        @if($bandera == null)
                         <td>
                             <a href="{{ url('/atras') }}">Volver</a>
                         </td>
+                        @else
+                        <td>
+                            <a href="{{ url('/login') }}">Volver</a>
+                        </td>
+                        @endif
                 </table>  
             </form>
         </div>

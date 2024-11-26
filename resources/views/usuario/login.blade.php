@@ -21,7 +21,7 @@
                             <label for="nombre">Nombre:</label>
                         </td>  
                         <td>
-                            <input type="text" name="nombre" >
+                            <input type="text" name="nombre" required>
                         </td>
                     </tr>   
                     <tr>
@@ -29,7 +29,7 @@
                             <label for="password">Contraseña:</label>
                         </td>  
                         <td>    
-                            <input type="password" name="password">
+                            <input type="password" name="password" required>
                         </td>
                     </tr>
                     <tr>

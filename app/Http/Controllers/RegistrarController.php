@@ -6,12 +6,19 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrarController extends Controller
 {
     public function index()
-    {
-        return view ('usuario.registrar');
+    {   
+        if(Auth::guest()){
+            $bandera = 1;
+            return view ('usuario.registrar', compact('bandera'));
+        }else{
+            $bandera = null;
+            return view ('usuario.registrar', compact('bandera'));
+        }
     }
 
     public function registrar(Request $request)

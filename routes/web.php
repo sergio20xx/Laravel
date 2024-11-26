@@ -19,6 +19,7 @@ use App\Http\Controllers\EditarController;
 */
 
 Route::get('/', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class, 'login']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout']); 
 Route::get('/atras', [TaskController::class, 'index']);
