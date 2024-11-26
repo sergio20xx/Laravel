@@ -21,7 +21,11 @@
                             <label for="id">Id:</label>
                         </td>  
                         <td>
-                            <input type="text" name="id" value="{{ $usuario->id }}" required>
+                            <input type="text" name="id" value="{{ $usuario->id }}">
+                            <br>
+                            @error('id')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
                         </td>
                     </tr> 
                     <tr>
@@ -29,7 +33,11 @@
                             <label for="nombre">Nombre:</label>
                         </td>  
                         <td>
-                            <input type="text" name="nombre" value="{{ $usuario->nombre }}" required>
+                            <input type="text" name="nombre" value="{{ $usuario->nombre }}">
+                            <br>
+                            @error('nombre')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
                         </td>
                     </tr>   
                     <tr>
@@ -37,7 +45,11 @@
                             <label for="password">Contraseña:</label>
                         </td>  
                         <td>    
-                            <input type="password" name="password" value="{{ $usuario->password }}" required>
+                            <input type="password" name="password" value="{{ $usuario->password }}">
+                            <br>
+                            @error('nombre')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
                         </td>
                     </tr>
                     <tr>

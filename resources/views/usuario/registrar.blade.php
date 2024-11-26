@@ -21,7 +21,11 @@
                             <label for="nombre">Nombre:</label>
                         </td>  
                         <td>
-                            <input type="text" name="nombre" required>
+                            <input type="text" name="nombre" value="{{ old('nombre') }}">
+                            <br>
+                            @error('nombre')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
                         </td>
                     </tr>   
                     <tr>
@@ -29,17 +33,13 @@
                             <label for="password">Contraseña:</label>
                         </td>  
                         <td>    
-                            <input type="password" name="password" required>
+                            <input type="password" name="password" value="{{ old('password') }}">
+                            <br>
+                            @error('password')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <a href="{{ url('/login') }}">Iniciar sesión</a>
-                        </td>
-                        <td>
-                            <input type="submit" value="Registrar">
-                        </td>
-                    </tr>  
                     <tr>
                         @if($bandera == null)
                         <td>
@@ -50,6 +50,9 @@
                             <a href="{{ url('/login') }}">Volver</a>
                         </td>
                         @endif
+                        <td>
+                            <input type="submit" value="Registrar">
+                        </td>
                 </table>  
             </form>
         </div>

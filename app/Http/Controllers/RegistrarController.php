@@ -23,6 +23,11 @@ class RegistrarController extends Controller
 
     public function registrar(Request $request)
     {
+        $request->validate([
+            'nombre'=> ['required'],
+            'password' => ['required']
+        ]);
+
         $usuario= new User;
         $usuario->nombre = $request->input('nombre');
         $usuario->password = Hash::make($request->input('password'));

@@ -10,8 +10,18 @@ use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
+    public function index()
+    { 
+        return view ('usuario.login');
+    }
+
     public function login(Request $request)
     {   
+        $request->validate([
+            'nombre'=> ['required'],
+            'password' => ['required']
+        ]);
+
         $credentials = [
             'nombre' => $request->nombre,
             'password' => $request->password
@@ -22,7 +32,7 @@ class LoginController extends Controller
 
 	        return view('usuario.index', compact('users'));
 	    }else{
-            return view ('usuario.login');
+            return view('usuario.login');
         }
     }
 

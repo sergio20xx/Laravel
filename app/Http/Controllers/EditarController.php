@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class EditarController extends Controller
 {
-    public function datos($id)
+    public function index($id)
     {
         $usuario = user::find($id);
 
@@ -18,6 +18,11 @@ class EditarController extends Controller
 
     public function editar(Request $request)
     {
+        $request->validate([
+            'id'=> ['required'],
+            'nombre'=> ['required'],
+            'password' => ['required']
+        ]);
 
         $usuario = User::find($request->id);
         $usuario->id = $request->id;
