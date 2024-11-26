@@ -21,7 +21,7 @@
                             <label for="id">Id:</label>
                         </td>  
                         <td>
-                            <input type="text" name="id" value="{{ $usuario->id }}">
+                            <input type="text" name="id" value="{{ $usuario->id }}" required>
                         </td>
                     </tr> 
                     <tr>
@@ -29,7 +29,7 @@
                             <label for="nombre">Nombre:</label>
                         </td>  
                         <td>
-                            <input type="text" name="nombre" value="{{ $usuario->nombre }}">
+                            <input type="text" name="nombre" value="{{ $usuario->nombre }}" required>
                         </td>
                     </tr>   
                     <tr>
@@ -37,7 +37,7 @@
                             <label for="password">Contraseña:</label>
                         </td>  
                         <td>    
-                            <input type="password" name="password" value="{{ $usuario->password }}">
+                            <input type="password" name="password" value="{{ $usuario->password }}" required>
                         </td>
                     </tr>
                     <tr>

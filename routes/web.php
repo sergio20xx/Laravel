@@ -17,12 +17,11 @@ use App\Http\Controllers\EditarController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-    
-Route::get('/atras', [TaskController::class, 'index']);
-Route::get('/login', [LoginController::class, 'index']);
-Route::post('/login', [LoginController::class, 'login']);
+
 Route::get('/', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login']);
 Route::get('/logout', [LoginController::class, 'logout']); 
+Route::get('/atras', [TaskController::class, 'index']);
 
 Route::get('/registrar', [RegistrarController::class, 'index']);
 Route::post('/registrar', [RegistrarController::class, 'registrar']);

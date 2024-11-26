@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
-    public function index()
-    {
-        return view ('usuario.login');
-    }
-
     public function login(Request $request)
     {        
         $credentials = [
@@ -36,10 +31,10 @@ class LoginController extends Controller
         return view ('usuario.registrar');
     }
 
-    public function logout ()
+    public function logout (Request $request)
     {
-        Session::flush();
         Auth::logout();
-        return view ('usuario.login');
+        $request->session()->regenerate(true);
+        return view('usuario.login');
     }
 }
