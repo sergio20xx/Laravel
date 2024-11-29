@@ -6,22 +6,30 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
 
 class EditarController extends Controller
 {
     public function index($id)
     {
         $usuario = user::find($id);
+        //$usuario->password = Crypt::decryptString($usuario->id);
 
         return view ('usuario.editar', compact('usuario'));
+    }
+
+    public function error(Request $request)
+    {
+        return view ('usuario.index');
     }
 
     public function editar(Request $request)
     {
         $request->validate([
-            'id'=> ['required'],
-            'nombre'=> ['required'],
-            'password' => ['required']
+            'id'=> ['required', 'numeric'],
+            'nombre'=> ['required', 'min:3', 'max:10', "unique:users,nombre,{$request->id}"],
+            'password' => ['required', 'min:3', 'max:20']
         ]);
 
         $usuario = User::find($request->id);

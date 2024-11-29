@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends Controller
 {
@@ -25,14 +26,15 @@ class LoginController extends Controller
         $credentials = [
             'nombre' => $request->nombre,
             'password' => $request->password
+            //'password' => Crypt::decryptString($password)
         ];
 
         if (Auth::attempt($credentials)) {
             $users = DB::table('users')->get();
 
-	        return view('usuario.index', compact('users'));
+	        return redirect()->to('/index')->with(compact('users'));
 	    }else{
-            return view('usuario.login');
+            return redirect()->to('/');
         }
     }
 
@@ -44,7 +46,9 @@ class LoginController extends Controller
     public function logout (Request $request)
     {
         Auth::logout();
-        $request->session()->regenerate(true);
-        return view('usuario.login');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->to('/');
     }
 }

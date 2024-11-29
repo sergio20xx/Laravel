@@ -19,15 +19,17 @@ use App\Http\Controllers\EditarController;
 */
 
 Route::get('/', [LoginController::class, 'index']);
+Route::get('/index', [TaskController::class, 'index']);
 Route::get('/login', [LoginController::class, 'index']);
 Route::post('/login', [LoginController::class, 'login']);
-Route::get('/logout', [LoginController::class, 'logout']); 
+Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/atras', [TaskController::class, 'index']);
 
 Route::get('/registrar', [RegistrarController::class, 'index']);
 Route::post('/registrar', [RegistrarController::class, 'registrar']);
 
+Route::get('/editar', [EditarController::class, 'error']);
 Route::post('/editar', [EditarController::class, 'editar']);
-Route::get('/usuario/{user}/editar', [EditarController::class, 'index'])->name('usuario.editar');
+Route::get('/usuario/{user}/editar', [EditarController::class, 'index'])->name('usuario.editar')->middleware('auth');
 
 Route::get('/usuario/{user}/eliminar', [EliminarController::class, 'eliminar'])->name('usuario.eliminar');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class RegistrarController extends Controller
 {
@@ -24,18 +25,26 @@ class RegistrarController extends Controller
     public function registrar(Request $request)
     {
         $request->validate([
-            'nombre'=> ['required'],
-            'password' => ['required']
+            'nombre'=> ['required', 'min:3', 'max:10', 'unique:users'],
+            'password' => ['required', 'min:3', 'max:20']
         ]);
 
         $usuario= new User;
         $usuario->nombre = $request->input('nombre');
+        $password = base64_decode($request->password);
+        //$usuario->password = Crypt::encryptString($password);
         $usuario->password = Hash::make($request->input('password'));
         $usuario->save();
 
         $users = DB::table('users')->get();
 
-        return view ('usuario.index', $usuario, compact('users'));
+        if(Auth::check()){
+            return view ('usuario.index', $usuario, compact('users'));
+        }else{
+            Auth::login($usuario);
+
+            return view ('usuario.index', $usuario, compact('users'));
+        }
     }
 
     public function logear (Request $request)

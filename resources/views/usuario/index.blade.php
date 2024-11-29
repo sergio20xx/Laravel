@@ -24,17 +24,21 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body>
+        @if(Auth::check())
         <div>
             <h1>Menú</h1>
             <nav>
             <ul>
+                <li><p>¡Bienvenido {{Auth::user()->nombre}}!</p></li>
 		        <li><a href="{{ url('/registrar') }}">Registrar usuario</a></li>
-		        <li><a href="{{ url('/logout') }}">Cerrar sesión</a></li>
+		        <li><form style="display: inline" action="{{ url('/logout') }}" method="post">
+                    @csrf
+                    <a href="#" onclick="this.closest('form').submit()">Cerrar sesión</a>
+                </form></li>
 	        </ul>
             </nav>
             <ul>
                 <div>
-                    <form action="{{ url('/editar') }}" method="post">
                     @csrf
                     <h1>Lista de usuarios</h1>
                     <table> 
@@ -67,5 +71,22 @@
                 </div>
             </ul>
         </div>
+        @else
+        <div>
+            <table> 
+                <tr>
+                    <td>
+                        <h2>¡Error!</h2>   
+                        <p>Debe iniciar sesión</p>    
+                    </td>
+                </tr>  
+                <tr>
+                    <td>
+                        <a href="{{ url('/login') }}">Login</a>
+                    </td>
+                </tr> 
+            </table>     
+        </div>
+        @endif
     </body>
 </html>

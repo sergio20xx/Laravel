@@ -6,6 +6,7 @@
         <title>Registrar usuario</title>
     </head>
     <body>
+        @if(Auth::check())
         <div>
             <form action="{{ url('/editar') }}" method="post">   
                 @csrf
@@ -21,7 +22,7 @@
                             <label for="id">Id:</label>
                         </td>  
                         <td>
-                            <input type="text" name="id" value="{{ $usuario->id }}">
+                            <input type="text" name="id" value="{{ $usuario->id }}" readonly>
                             <br>
                             @error('id')
                                 <small style="color:red">{{ $message }}</small>
@@ -47,7 +48,7 @@
                         <td>    
                             <input type="password" name="password" value="{{ $usuario->password }}">
                             <br>
-                            @error('nombre')
+                            @error('password')
                                 <small style="color:red">{{ $message }}</small>
                             @enderror
                         </td>
@@ -63,5 +64,22 @@
                 </table>   
             </form>
         </div>
+        @else
+        <div>
+            <table> 
+                <tr>
+                    <td>
+                        <h2>¡Error!</h2>   
+                        <p>Debe iniciar sesión</p>    
+                    </td>
+                </tr>  
+                <tr>
+                    <td>
+                        <a href="{{ url('/login') }}">Login</a>
+                    </td>
+                </tr> 
+            </table>     
+        </div>
+        @endif
     </body>
 </html>

@@ -14,7 +14,7 @@ class TaskController extends Controller
     public function index()
     {
         $users = DB::table('users')->get();
-
+        
         return view('usuario.index', compact('users'));
     }
 
