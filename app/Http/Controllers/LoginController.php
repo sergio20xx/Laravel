@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User as Authenticatable;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 class LoginController extends Controller
 {
@@ -23,17 +26,30 @@ class LoginController extends Controller
             'password' => ['required']
         ]);
 
-        $credentials = [
-            'nombre' => $request->nombre,
-            'password' => $request->password
-            //'password' => Crypt::decryptString($password)
-        ];
+        //$credentials = [
+            //'nombre' => $request->nombre,
+            //'password' => $request->password
+            //'password' => Crypt::encrypt($request->input('password'))
+        //];
+        
+        $nombre = $request->get('nombre');
+        $password = $request->get('password');
+        $usuario = User::where('nombre', $nombre)->first();
 
-        if (Auth::attempt($credentials)) {
-            $users = DB::table('users')->get();
+        if($usuario){
+            $usuario->password = Crypt::decrypt($usuario->password);
 
-	        return redirect()->to('/index')->with(compact('users'));
-	    }else{
+            if($usuario->password == $password){
+        //if(Auth::attempt(['nombre'=>$credentials,'password'=>$request])){
+                Auth::login($usuario);
+                $request->session()->regenerate();
+                $users = DB::table('users')->get();
+
+	            return redirect()->to('/index')->with(compact('users'));
+	        }else{
+                return redirect()->to('/');
+            }
+        }else{
             return redirect()->to('/');
         }
     }

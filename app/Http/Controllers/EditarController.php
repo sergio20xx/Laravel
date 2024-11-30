@@ -14,7 +14,8 @@ class EditarController extends Controller
     public function index($id)
     {
         $usuario = user::find($id);
-        //$usuario->password = Crypt::decryptString($usuario->id);
+
+        $usuario->password = Crypt::decrypt($usuario->password);
 
         return view ('usuario.editar', compact('usuario'));
     }
@@ -35,7 +36,9 @@ class EditarController extends Controller
         $usuario = User::find($request->id);
         $usuario->id = $request->id;
         $usuario->nombre = $request->nombre;
-        $usuario->password = Hash::make($request->input('password'));
+        $usuario->password = Crypt::encrypt($request->input('password'));
+        //$usuario->password = $request->password;
+        //$usuario->password = Hash::make($request->input('password'));
 
         $usuario->update();
 

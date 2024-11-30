@@ -29,11 +29,9 @@ class RegistrarController extends Controller
             'password' => ['required', 'min:3', 'max:20']
         ]);
 
-        $usuario= new User;
+        $usuario = new User;
         $usuario->nombre = $request->input('nombre');
-        $password = base64_decode($request->password);
-        //$usuario->password = Crypt::encryptString($password);
-        $usuario->password = Hash::make($request->input('password'));
+        $usuario->password = Crypt::encrypt($request->input('password'));
         $usuario->save();
 
         $users = DB::table('users')->get();
