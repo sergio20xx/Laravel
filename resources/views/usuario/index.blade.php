@@ -3,22 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <style type="text/css">
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-            table { 
-                border-collapse: collapse; 
-                margin: 25px 0; 
-                font-size: 1em; 
-                font-family: sans-serif; 
-                min-width: 450px; 
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); 
-            }
-        </style>
+        <link rel="stylesheet" href="/css/app.css">
 
         <title>Menú principal</title>
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -26,28 +11,28 @@
     <body>
         @if(Auth::check())
         <div>
-            <h1>Menú</h1>
-            <nav>
-            <ul>
-                <li><p>¡Bienvenido {{Auth::user()->nombre}}!</p></li>
-		        <li><a href="{{ url('/registrar') }}">Registrar usuario</a></li>
-		        <li><form style="display: inline" action="{{ url('/logout') }}" method="post">
+            <h2>¡Bienvenido {{Auth::user()->nombre}}!</h2>
+            <div class="nav">
+                <a href="#" class="active">Menú</a>
+		        <a href="{{ url('/registrar') }}">Registrar usuario</a>
+		        <form style="display: inline" action="{{ url('/logout') }}" method="post">
                     @csrf
-                    <a href="#" onclick="this.closest('form').submit()">Cerrar sesión</a>
-                </form></li>
-	        </ul>
-            </nav>
-            <ul>
+                <a href="#" onclick="this.closest('form').submit()">Cerrar sesión</a>
+                </form>
+            </div>
                 <div>
                     @csrf
-                    <h1>Lista de usuarios</h1>
                     <table> 
+                        <h2>Lista de usuarios</h2>
                         <tr>
                             <td>
                                 <h3>Id</h3>
                             </td>
                             <td>
                                 <h3>Nombre</h3>
+                            </td>
+                            <td>
+                                <h3>Email</h3>
                             </td>
                         </tr>
                         @foreach($users as $user)
@@ -59,10 +44,13 @@
                                 {{ $user->nombre }}
                             </td>
                             <td>
-                                <a href="{{ route('usuario.editar', $user->id) }}">Editar</a>
+                                {{ $user->email }}
                             </td>
                             <td>
-                                <a href="{{ route('usuario.eliminar', $user->id) }}">Eliminar</a>
+                                <a href="{{ route('usuario.editar', $user->id) }}" class="link">Editar</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('usuario.eliminar', $user->id) }}" class="link">Eliminar</a>
                             </td>
                         </tr>
                         @endforeach
@@ -82,7 +70,7 @@
                 </tr>  
                 <tr>
                     <td>
-                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/login') }}" class="link">Login</a>
                     </td>
                 </tr> 
             </table>     

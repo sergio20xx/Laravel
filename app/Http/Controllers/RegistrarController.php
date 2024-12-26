@@ -8,13 +8,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class RegistrarController extends Controller
 {
     public function index()
     {   
         if(Auth::guest()){
-            $bandera = 1;
+            $bandera = Str::random(64);
             return view ('usuario.registrar', compact('bandera'));
         }else{
             $bandera = null;
@@ -26,11 +27,13 @@ class RegistrarController extends Controller
     {
         $request->validate([
             'nombre'=> ['required', 'min:3', 'max:10', 'unique:users'],
+            'email'=> ['required'],
             'password' => ['required', 'min:3', 'max:20']
         ]);
 
         $usuario = new User;
         $usuario->nombre = $request->input('nombre');
+        $usuario->email = $request->input('email');
         $usuario->password = Crypt::encrypt($request->input('password'));
         $usuario->save();
 

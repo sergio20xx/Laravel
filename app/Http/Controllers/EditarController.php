@@ -30,12 +30,14 @@ class EditarController extends Controller
         $request->validate([
             'id'=> ['required', 'numeric'],
             'nombre'=> ['required', 'min:3', 'max:10', "unique:users,nombre,{$request->id}"],
+            'email'=> ['required'],
             'password' => ['required', 'min:3', 'max:20']
         ]);
 
         $usuario = User::find($request->id);
         $usuario->id = $request->id;
         $usuario->nombre = $request->nombre;
+        $usuario->email = $request->email;
         $usuario->password = Crypt::encrypt($request->input('password'));
         //$usuario->password = $request->password;
         //$usuario->password = Hash::make($request->input('password'));

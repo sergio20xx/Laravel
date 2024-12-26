@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/app.css">
+
         <title>Registrar usuario</title>
     </head>
     <body>
@@ -40,7 +42,19 @@
                                 <small style="color:red">{{ $message }}</small>
                             @enderror
                         </td>
-                    </tr>   
+                    </tr>  
+                    <tr>
+                        <td>
+                            <label for="email">Email:</label>
+                        </td>  
+                        <td>
+                            <input type="text" name="email" value="{{ $usuario->email }}">
+                            <br>
+                            @error('email')
+                                <small style="color:red">{{ $message }}</small>
+                            @enderror
+                        </td>
+                    </tr> 
                     <tr>
                         <td>
                             <label for="password">Contraseña:</label>
@@ -55,10 +69,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <a href="{{ url('/atras') }}">Atras</a>
+                            <a href="{{ url('/atras') }}" class="enlace">Atras</a>
                         </td>
                         <td>
-                            <input type="submit" value="Editar">
+                            <input type="submit" value="Editar" class="boton">
                         </td>
                     </tr>  
                 </table>   
@@ -75,7 +89,7 @@
                 </tr>  
                 <tr>
                     <td>
-                        <a href="{{ url('/login') }}">Login</a>
+                        <a href="{{ url('/login') }}" class="enlace">Login</a>
                     </td>
                 </tr> 
             </table>     
